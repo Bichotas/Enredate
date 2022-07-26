@@ -7,7 +7,7 @@ import {
   Text,
   View,
   Stack,
-  Button,
+  Button
 } from "native-base";
 import React from "react";
 {
@@ -29,6 +29,11 @@ const validationSchema = Yup.object().shape({
 });
 
 export default class Register extends React.Component {
+
+  // Vemos que parametro eligio el usuario  
+  componentDidMount(){
+    console.log(this.props.route.params)
+  }
   render() {
     return (
       <NativeBaseProvider>
@@ -112,6 +117,8 @@ export default class Register extends React.Component {
               </>
             )}
           </Formik>
+
+
         </View>
       </NativeBaseProvider>
     );
