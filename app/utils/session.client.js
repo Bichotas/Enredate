@@ -1,5 +1,4 @@
 import * as SecureStore from "expo-secure-store";
-import { getSessionToken } from "./auth.server";
 
 {
   /* Token -- THINGS*/
@@ -49,6 +48,21 @@ async function setTypeAccount(typeAccount) {
 async function deleteTypeAccount() {
   await SecureStore.deleteItemAsync("typeAccount");
 }
+
+{
+  /* functionWith all Functiuon */
+}
+
+async function setUserPropsStore(uid, typeAccount) {
+  await setUserUid(uid);
+  await setTypeAccount(typeAccount);
+}
+
+async function getUserPropStore() {
+  const uid = await getUserUid();
+  const typeAccount = await getTypeAccount();
+  return { uid, typeAccount };
+}
 export {
   createUserSession,
   getUserSession,
@@ -59,4 +73,6 @@ export {
   getTypeAccount,
   setTypeAccount,
   deleteTypeAccount,
+  setUserPropsStore,
+  getUserPropStore,
 };

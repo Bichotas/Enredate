@@ -20,6 +20,7 @@ import * as Yup from "yup";
 
 import { signUp } from "../../../utils/auth.client";
 import { setUserDoc } from "../../../utils/db.server";
+import { setUserPropsStore } from "../../../utils/session.client";
 // Esquema de validación
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -77,6 +78,10 @@ export default class Register extends React.Component {
                 pendejada.user.uid
               );
               // 2- Guardamos los datos de session
+              setUserPropsStore(
+                pendejada.user.uid,
+                this.props.route.params.typeAccount
+              );
             }}
             validationSchema={validationSchema}
           >

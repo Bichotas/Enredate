@@ -1,14 +1,17 @@
 //import { Button, NativeBaseProvider, View } from "native-base";
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Button } from "react-native";
 // Navigation
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { signOutUser, auth } from "../../utils/auth.client";
 
-
 import { signOut } from "firebase/auth";
+import { getUserPropStore } from "../../utils/session.client";
+
+import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
+
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -70,15 +73,14 @@ export default class DrawerNavigator extends React.Component {
         {/* --- En cada Item del Drawer debe de haber un stack */}
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="MyStore" component={MyStoreScreen} />
-        <Drawer.Screen name="Orders" component={OrderScreen} />
+        <Drawer.Screen name="Orders" component={HomeG} />
         <Drawer.Screen name="Cart" component={CartScreen} />
         <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
         {/* --- En cada Item del Drawer debe de haber un stack */}
 
         {/* Faltaría  el logout -- Se pone como si fuera un componente para tener noción */}
         {/* <Drawer.Screen name="Logout" component={LogoutScreen} /> */}
-        <Drawer.Screen name="Logout" component={LogoutScreen} />  
-
+        <Drawer.Screen name="Logout" component={LogoutScreen} />
 
         {/* --- Usar el flujo de autenticación --- */}
         {/* https://reactnavigation.org/docs/auth-flow */}
