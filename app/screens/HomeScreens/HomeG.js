@@ -4,6 +4,7 @@ import React from "react";
 import { View, Text, Button } from "react-native";
 
 export default class HomeG extends React.Component {
+  // Checar como poner atrubutos en las clases
   componentDidMount() {
     SecureStore.getItemAsync("uid").then((token) => {
       console.log(token);
@@ -12,7 +13,7 @@ export default class HomeG extends React.Component {
   render() {
     return (
       <View>
-        <Text>homgG -- Orders</Text>
+        <Text>HomeG -- Orders</Text>
       </View>
     );
   }
