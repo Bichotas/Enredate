@@ -7,6 +7,7 @@ import {
   Stack,
 } from "native-base";
 import React from "react";
+import { getUserPropStore } from "../../utils/session.client";
 
 export default class Welcome extends React.Component {
   goWindow(windowName) {

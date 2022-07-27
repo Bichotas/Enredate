@@ -18,6 +18,7 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { signIn } from "../../utils/auth.client";
+import { setUserPropsStore } from "../../utils/session.client";
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
@@ -44,9 +45,12 @@ export default class Login extends React.Component {
               const user = await signIn(values.email, values.password);
 
               // Después de que el usuario se loguea, debemos de guardar el token en el expo-secure-store
-              user.user.getIdToken().then(token => {
-                console.log(token)
-              })
+              // user.user.getIdToken().then(token => {
+              //   console.log(token)
+              // })
+
+              // Para el segundo parametro se necesita hacer una llamada a la base de datos y buscar un documento con su uid, de ahí sacar el tipo de cuenta
+              setUserPropsStore(user.user.uid, "vendedor");
             }}
             validationSchema={validationSchema}
           >

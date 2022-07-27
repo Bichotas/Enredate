@@ -63,6 +63,11 @@ async function getUserPropStore() {
   const typeAccount = await getTypeAccount();
   return { uid, typeAccount };
 }
+
+async function deleteUserPropStore() {
+  await deleteUserUid();
+  await deleteTypeAccount();
+}
 export {
   createUserSession,
   getUserSession,
@@ -75,4 +80,5 @@ export {
   deleteTypeAccount,
   setUserPropsStore,
   getUserPropStore,
+  deleteUserPropStore,
 };

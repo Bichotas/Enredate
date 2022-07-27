@@ -7,7 +7,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { signOutUser, auth } from "../../utils/auth.client";
 
 import { signOut } from "firebase/auth";
-import { getUserPropStore } from "../../utils/session.client";
+import {
+  deleteUserPropStore,
+  getUserPropStore,
+} from "../../utils/session.client";
 
 import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
@@ -57,7 +60,13 @@ function ConfigurationScreen({ navigation }) {
 function LogoutScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button onPress={() => signOut(auth)} title="SignOut" />
+      <Button
+        onPress={async () => {
+          signOut(auth);
+          await deleteUserPropStore();
+        }}
+        title="SignOut"
+      />
     </View>
   );
 }
