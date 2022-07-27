@@ -1,0 +1,1 @@
+// En este archivo se van a poner las funciones para hacer las modificaciones en la base de datos de firebase

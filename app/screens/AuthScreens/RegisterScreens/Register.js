@@ -59,9 +59,9 @@ export default class Register extends React.Component {
             }}
             onSubmit={async (values) => {
               const pendejada = await signUp(values.email, values.password, values.name)
-              pendejada.user.getIdToken().then(token => {
-                console.log(token)
-              })
+              console.log("Parametros de la pantalla anterior");
+              console.log(this.props.route.params)
+
             }}
             validationSchema={validationSchema}
           >
