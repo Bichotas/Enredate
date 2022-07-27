@@ -2,17 +2,15 @@ import { Button, NativeBaseProvider } from "native-base";
 import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 function AccountOptionScreen({ navigation }) {
-
   const vendedor = () => {
-    navigation.navigate("Register", { tipoCuenta: "vendedor" });
+    navigation.navigate("Register", { typeAccount: "vendedor" });
   };
   const comprador = () => {
-    navigation.navigate("Register", { tipoCuenta: "comprador" });
+    navigation.navigate("Register", { typeAccount: "comprador" });
   };
 
   return (
-      <NativeBaseProvider>
-
+    <NativeBaseProvider>
       {/* Contenedor  */}
       <View style={styles.container}>
         {/* Imagen */}
@@ -28,16 +26,14 @@ function AccountOptionScreen({ navigation }) {
         {/* Botones */}
         <View style={styles.buttonsContainer}>
           <View style={styles.button1}>
-            <Button onPress={comprador} >Comprar</Button>
+            <Button onPress={comprador}>Comprar</Button>
           </View>
           <View style={styles.button2}>
-            <Button
-              onPress={vendedor}
-            >Vender</Button>
+            <Button onPress={vendedor}>Vender</Button>
           </View>
         </View>
       </View>
-      </NativeBaseProvider>
+    </NativeBaseProvider>
   );
 }
 const styles = StyleSheet.create({

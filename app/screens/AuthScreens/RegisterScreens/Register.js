@@ -7,7 +7,7 @@ import {
   Text,
   View,
   Stack,
-  Button
+  Button,
 } from "native-base";
 import React from "react";
 {
@@ -19,6 +19,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import { signUp } from "../../../utils/auth.client";
+import { setUserDoc } from "../../../utils/db.server";
 // Esquema de validación
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -29,10 +30,9 @@ const validationSchema = Yup.object().shape({
 });
 
 export default class Register extends React.Component {
-
-  // Vemos que parametro eligio el usuario  
-  componentDidMount(){
-    console.log(this.props.route.params)
+  // Vemos que parametro eligio el usuario
+  componentDidMount() {
+    console.log(this.props.route.params);
   }
   render() {
     return (
@@ -58,10 +58,25 @@ export default class Register extends React.Component {
               password: "",
             }}
             onSubmit={async (values) => {
-              const pendejada = await signUp(values.email, values.password, values.name)
+              const pendejada = await signUp(
+                values.email,
+                values.password,
+                values.name
+              );
               console.log("Parametros de la pantalla anterior");
-              console.log(this.props.route.params)
+              console.log(this.props.route.params);
 
+              // Crear el docuemento y ponerle las propiades del usuario
+              // 1- Creamos el documento
+              await setUserDoc(
+                {
+                  name: values.name,
+                  email: values.email,
+                  typeAccount: this.props.route.params.typeAccount,
+                },
+                pendejada.user.uid
+              );
+              // 2- Guardamos los datos de session
             }}
             validationSchema={validationSchema}
           >
@@ -117,8 +132,6 @@ export default class Register extends React.Component {
               </>
             )}
           </Formik>
-
-
         </View>
       </NativeBaseProvider>
     );

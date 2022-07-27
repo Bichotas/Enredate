@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -6,13 +5,14 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import firebaseConfig from "./firebaseConfig";
-let Firebase;
+// import firebaseConfig from "./firebaseConfig";
+// import { initializeApp } from "firebase/app";
+// let Firebase;
 
-if (!Firebase?.apps?.length) {
-  Firebase = initializeApp(firebaseConfig);
-}
-
+// if (!Firebase?.apps?.length) {
+//   Firebase = initializeApp(firebaseConfig);
+// }
+import { Firebase } from "./firebaseConfig";
 const auth = getAuth(Firebase);
 async function signUp(email, password, name) {
   const token = await createUserWithEmailAndPassword(auth, email, password);

@@ -8,3 +8,12 @@ const firebaseConfig = {
 };
 
 export default firebaseConfig;
+
+
+import { initializeApp } from "firebase/app";
+let Firebase;
+
+if (!Firebase?.apps?.length) {
+  Firebase = initializeApp(firebaseConfig);
+}
+export {Firebase}
