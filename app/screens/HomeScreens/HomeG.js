@@ -21,7 +21,9 @@ export default function HomeG() {
   const [tiendita, setTiendita] = useState();
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount);
-    const store = await getStorageData(first);
+    const store = await getStorageData(first, setTiendita);
+    console.log("TIENDA");
+    console.log(tiendita);
   }, []);
 
   return (

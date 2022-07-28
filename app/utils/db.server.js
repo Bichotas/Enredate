@@ -22,10 +22,14 @@ async function setUserDoc(data, uid) {
   });
 }
 
-async function getStorageData(userUid) {
+async function getStorageData(userUid, setStore) {
   const uidStoreRef = collection(db, "stores");
-  const queryGANG = query(uidStoreRef, where("uid", "==", userUid));
-  const snapshot = await getDocs(queryGANG);
-  return snapshot;
+  const queryGANG = query(uidStoreRef, where("userUid", "==", userUid));
+  const querySnapshot = await getDocs(queryGANG);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+    setStore(doc.data());
+  });
 }
 export { db, setUserDoc, getStorageData };
