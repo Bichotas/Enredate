@@ -68,6 +68,30 @@ async function deleteUserPropStore() {
   await deleteUserUid();
   await deleteTypeAccount();
 }
+
+{
+  /* --- Async Storage --- */
+}
+
+const store = async (values) => {
+  try {
+    await AsyncStorageLib.setItem("store", JSON.stringify(values));
+  } catch (error) {}
+};
+store({
+  name: "sex",
+});
+const getData = async () => {
+  try {
+    const value = await AsyncStorageLib.getItem("store");
+    if (value !== null) {
+      // value = JSON.parse(value);
+      console.log("value", value);
+      setvalue(value);
+    }
+  } catch (error) {}
+};
+getData();
 export {
   createUserSession,
   getUserSession,

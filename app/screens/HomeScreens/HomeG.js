@@ -25,21 +25,6 @@ export default function HomeG() {
   useEffect(() => {
     setSecureStates(setfirst, setTypeAccount);
     // Antes de esto, podemos checar si existe una propiedad acerca del store o si esta propiedad es nula, si es nula
-
-    // Entonces podemos pasar a la siguiente y asi sucesivamente
-    if (typeAccount == "vendedor") {
-      console.log("Es vendedor___________");
-      // Hacemos la llamada
-      // Checamos si existe.
-
-      // Si nos devuelve algo, entonces podemos guardar el docuemnto en el async storage
-    }
-    const store = async (values) => {
-      try {
-        await AsyncStorageLib.setItem("store", JSON.stringify(values));
-      } catch (error) {}
-    };
-    store("uno");
     const getData = async () => {
       try {
         const value = await AsyncStorageLib.getItem("store");
@@ -51,6 +36,22 @@ export default function HomeG() {
       } catch (error) {}
     };
     getData();
+
+    if (value == null) {
+      // Mandamos a llamar al documento para ver si existe
+    } else {
+      // Si existe algun valor, entonces no va a pasar nada
+      // Estructura de codigo para checar si existe
+      // https://stackoverflow.com/questions/57877154/flutter-dart-how-can-check-if-a-document-exists-in-firestore
+    }
+    // Entonces podemos pasar a la siguiente y asi sucesivamente
+    if (typeAccount == "vendedor") {
+      console.log("Es vendedor___________");
+      // Hacemos la llamada
+      // Checamos si existe.
+
+      // Si nos devuelve algo, entonces podemos guardar el docuemnto en el async storage
+    }
     // -- Todo esto para evitar llamadas a la base de firestore inecesarias -- Y que solo llame una vez en dado caso que no se tenga una tienda creada
   }, []);
 
@@ -62,6 +63,7 @@ export default function HomeG() {
           " El tipo de cuenta es: " +
           typeAccount}
       </Text>
+      <Text>{"El valor es: " + value}</Text>
     </View>
   );
 }
