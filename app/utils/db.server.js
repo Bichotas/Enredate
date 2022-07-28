@@ -1,6 +1,12 @@
 // En este archivo se van a poner las funciones para hacer las modificaciones en la base de datos de firebase
 import { Firebases } from "./firebaseConfig";
-import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  collection,
+  setDoc,
+  query,
+} from "firebase/firestore";
 
 const db = getFirestore(Firebases);
 
@@ -13,4 +19,5 @@ async function setUserDoc(data, uid) {
   });
 }
 
-export { db, setUserDoc };
+async function getStoreDoc(userUid) {}
+export { db, setUserDoc, getStoreDoc };

@@ -5,6 +5,11 @@ import { StyleSheet, Text, View } from "react-native";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // StatesSets
 import { setSecureStates } from "../../utils/states.client";
+import { getStoreDoc } from "../../utils/db.server";
+
+// Importanciones temporales
+import { collection, query } from "firebase/firestore";
+
 // if (typeAccount == "vendedor") {
 // Vamos a mandar a buscar si existe una tienda con el uid del usuario
 // Si no hay, entonces podemos rendereizar un modal, o una pantalla con options={{modal}}
@@ -37,20 +42,21 @@ export default function HomeG() {
     };
     getData();
 
-    if (value == null) {
-      // Mandamos a llamar al documento para ver si existe
-    } else {
-      // Si existe algun valor, entonces no va a pasar nada
-      // Estructura de codigo para checar si existe
-      // https://stackoverflow.com/questions/57877154/flutter-dart-how-can-check-if-a-document-exists-in-firestore
-    }
     // Entonces podemos pasar a la siguiente y asi sucesivamente
     if (typeAccount == "vendedor") {
-      console.log("Es vendedor___________");
-      // Hacemos la llamada
-      // Checamos si existe.
-
-      // Si nos devuelve algo, entonces podemos guardar el docuemnto en el async storage
+      // Checamos si hay un valor en el async storage
+      if (value === null) {
+        // Si no hay nada, entonces mandamos a llamar al documento para ver si existe
+        getStoreDoc(first)
+          .then((res) => {})
+          .catch((err) => {
+            console.log("err", err);
+          });
+        // Si no hay un documento, entonces podemos crear uno
+        // Entonces lo que debemos de hacer navegar a la pantalla de crear tienda como un modal
+      } else {
+        // Podemos devolver un toast para que todo signifique correcto
+      }
     }
     // -- Todo esto para evitar llamadas a la base de firestore inecesarias -- Y que solo llame una vez en dado caso que no se tenga una tienda creada
   }, []);
