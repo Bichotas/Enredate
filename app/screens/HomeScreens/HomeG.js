@@ -2,6 +2,7 @@ import * as SecureStore from "expo-secure-store";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // StatesSets
 import { setSecureStates } from "../../utils/states.client";
 // if (typeAccount == "vendedor") {
@@ -16,6 +17,7 @@ import { setSecureStates } from "../../utils/states.client";
 export default function HomeG() {
   const [first, setfirst] = useState(null);
   const [typeAccount, setTypeAccount] = useState(null);
+  const [value, setvalue] = useState(null);
 
   // Funcion agrupada
   // Se colocan los sets para los valores
@@ -32,7 +34,23 @@ export default function HomeG() {
 
       // Si nos devuelve algo, entonces podemos guardar el docuemnto en el async storage
     }
-
+    const store = async (values) => {
+      try {
+        await AsyncStorageLib.setItem("store", JSON.stringify(values));
+      } catch (error) {}
+    };
+    store("uno");
+    const getData = async () => {
+      try {
+        const value = await AsyncStorageLib.getItem("store");
+        if (value !== null) {
+          // value = JSON.parse(value);
+          console.log("value", value);
+          setvalue(value);
+        }
+      } catch (error) {}
+    };
+    getData();
     // -- Todo esto para evitar llamadas a la base de firestore inecesarias -- Y que solo llame una vez en dado caso que no se tenga una tienda creada
   }, []);
 
