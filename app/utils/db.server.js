@@ -6,6 +6,9 @@ import {
   collection,
   setDoc,
   query,
+  getDoc,
+  where,
+  getDocs,
 } from "firebase/firestore";
 
 const db = getFirestore(Firebases);
@@ -19,5 +22,10 @@ async function setUserDoc(data, uid) {
   });
 }
 
-async function getStoreDoc(userUid) {}
-export { db, setUserDoc, getStoreDoc };
+async function getStorageData(userUid) {
+  const uidStoreRef = collection(db, "stores");
+  const queryGANG = query(uidStoreRef, where("uid", "==", userUid));
+  const snapshot = await getDocs(queryGANG);
+  return snapshot;
+}
+export { db, setUserDoc, getStorageData };

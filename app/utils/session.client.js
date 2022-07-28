@@ -91,7 +91,6 @@ const getData = async () => {
     }
   } catch (error) {}
 };
-getData();
 export {
   createUserSession,
   getUserSession,
@@ -105,4 +104,5 @@ export {
   setUserPropsStore,
   getUserPropStore,
   deleteUserPropStore,
+  getData,
 };

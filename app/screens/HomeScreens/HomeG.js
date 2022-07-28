@@ -1,64 +1,27 @@
 import * as SecureStore from "expo-secure-store";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // StatesSets
+import { db, getStorageData, getStoreDoc } from "../../utils/db.server";
 import { setSecureStates } from "../../utils/states.client";
-import { getStoreDoc } from "../../utils/db.server";
 
-// Importanciones temporales
-import { collection, query } from "firebase/firestore";
-
-// if (typeAccount == "vendedor") {
-// Vamos a mandar a buscar si existe una tienda con el uid del usuario
-// Si no hay, entonces podemos rendereizar un modal, o una pantalla con options={{modal}}
-//    -- Adentro de esto podemos poner una condiciopon si nos devuelve algo
-//      -- Si nos devuelve un documento, entonces podemos guardar este objeto en el "asyncStorage"
-//      -- Para luego utilizar los datos en la parte de "MyStore"
-//      __ Si no existe, entonces podemos navegar a la pantalla "CreateStore" que va  tener el tipo modal
-//}
+import {
+  collection,
+  where,
+  getDocs,
+  ref,
+  getDoc,
+  query,
+} from "firebase/firestore";
 
 export default function HomeG() {
   const [first, setfirst] = useState(null);
   const [typeAccount, setTypeAccount] = useState(null);
-  const [value, setvalue] = useState(null);
-
-  // Funcion agrupada
-  // Se colocan los sets para los valores
-
-  useEffect(() => {
+  const [tiendita, setTiendita] = useState();
+  useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount);
-    // Antes de esto, podemos checar si existe una propiedad acerca del store o si esta propiedad es nula, si es nula
-    const getData = async () => {
-      try {
-        const value = await AsyncStorageLib.getItem("store");
-        if (value !== null) {
-          // value = JSON.parse(value);
-          console.log("value", value);
-          setvalue(value);
-        }
-      } catch (error) {}
-    };
-    getData();
-
-    // Entonces podemos pasar a la siguiente y asi sucesivamente
-    if (typeAccount == "vendedor") {
-      // Checamos si hay un valor en el async storage
-      if (value === null) {
-        // Si no hay nada, entonces mandamos a llamar al documento para ver si existe
-        getStoreDoc(first)
-          .then((res) => {})
-          .catch((err) => {
-            console.log("err", err);
-          });
-        // Si no hay un documento, entonces podemos crear uno
-        // Entonces lo que debemos de hacer navegar a la pantalla de crear tienda como un modal
-      } else {
-        // Podemos devolver un toast para que todo signifique correcto
-      }
-    }
-    // -- Todo esto para evitar llamadas a la base de firestore inecesarias -- Y que solo llame una vez en dado caso que no se tenga una tienda creada
+    const store = await getStorageData(first);
   }, []);
 
   return (
@@ -69,7 +32,6 @@ export default function HomeG() {
           " El tipo de cuenta es: " +
           typeAccount}
       </Text>
-      <Text>{"El valor es: " + value}</Text>
     </View>
   );
 }
