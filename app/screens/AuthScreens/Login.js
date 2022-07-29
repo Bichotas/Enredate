@@ -48,7 +48,11 @@ export default function Login() {
           onSubmit={async (values) => {
             const user = await signIn(values.email, values.password);
             const userData = (await getUserDoc(user.user.uid)).data();
-            setUserPropsStore(user.user.uid, userData.typeAccount);
+            setUserPropsStore(
+              user.user.uid,
+              userData.typeAccount,
+              "desde el login"
+            );
           }}
           validationSchema={validationSchema}
         >
@@ -69,6 +73,10 @@ export default function Login() {
                   placeholder={"name"}
                   width={"100%"}
                   onBlur={() => setFieldTouched("email")}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyboardType="email-address"
+                  textContentType="emailAddress"
                 ></Input>
                 {touched.email && (
                   <Text style={{ color: "red" }}>{errors.email}</Text>

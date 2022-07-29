@@ -21,7 +21,6 @@ export default function HomeG() {
     const store = await getStorageData(first, setTiendita);
 
     let value = JSON.stringify(store);
-    await SecureStore.setItemAsync("store-data", "valor-caca");
     console.log(await SecureStore.getItemAsync("store-data"));
     // Obtiene los datos de storeData del "AsyncStorage"
     await getAsyncStorageData("storeData", setTiendita);

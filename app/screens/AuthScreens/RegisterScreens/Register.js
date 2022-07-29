@@ -112,6 +112,10 @@ export default class Register extends React.Component {
                   <Input
                     onChangeText={handleChange("email")}
                     placeholder={"name"}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
                     width={"100%"}
                     onBlur={() => setFieldTouched("email")}
                   ></Input>

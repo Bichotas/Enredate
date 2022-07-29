@@ -54,12 +54,17 @@ async function deleteTypeAccount() {
   /* functionWith all Functiuon */
 }
 
-async function setUserPropsStore(uid, typeAccount) {
+async function setUserPropsStore(uid, typeAccount, store) {
   console.log(typeAccount);
   await setUserUid(uid);
   await setTypeAccount(typeAccount);
+  if (typeAccount === "vendedor") {
+    await setUserStore(store);
+  }
 }
-
+async function setUserStore(store) {
+  await setStoreData(store);
+}
 async function getUserPropStore() {
   const uid = await getUserUid();
   const typeAccount = await getTypeAccount();
@@ -73,7 +78,7 @@ async function deleteUserPropStore() {
 
 async function setStoreData(store) {
   let value = JSON.stringify(store);
-  await SecureStore.setItemAsync("store-data", value);
+  await SecureStore.setItemAsync("store-data", store);
 }
 {
   /* --- Async Storage --- */
