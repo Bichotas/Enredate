@@ -18,7 +18,10 @@ import React, { useContext, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { signIn } from "../../utils/auth.client";
-import { setUserPropsStore } from "../../utils/session.client";
+import {
+  setAsyncStorageData,
+  setUserPropsStore,
+} from "../../utils/session.client";
 import { getUserDoc } from "../../utils/db.server";
 
 import StoreContext from "../../context/StoreContext";
@@ -53,6 +56,7 @@ export default function Login() {
               userData.typeAccount,
               "desde el login"
             );
+            await setAsyncStorageData("store_data", "Async desde el login");
           }}
           validationSchema={validationSchema}
         >

@@ -97,12 +97,21 @@ store({
   name: "sex",
 });
 
-async function getAsyncStorageData(key, setKey) {
+async function getAsyncStorageData(key) {
   try {
     const value = await AsyncStorageLib.getItem(key);
     if (value !== null) {
-      setKey(value);
+      return value;
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
+// Hacer una funcion la cual almacene un valor con un key en el AsyncStorage
+
+async function setAsyncStorageData(key, value) {
+  try {
+    await AsyncStorageLib.setItem(key, value);
   } catch (error) {
     console.log(error);
   }
@@ -123,4 +132,5 @@ export {
   deleteUserPropStore,
   getAsyncStorageData,
   deleteUserStore,
+  setAsyncStorageData,
 };

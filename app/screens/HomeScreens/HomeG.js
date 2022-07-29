@@ -6,7 +6,10 @@ import AsyncStorageLib from "@react-native-async-storage/async-storage";
 import { db, getStorageData } from "../../utils/db.server";
 import { setSecureStates } from "../../utils/states.client";
 import StoreContext from "../../context/StoreContext";
-import { getAsyncStorageData } from "../../utils/session.client";
+import {
+  getAsyncStorageData,
+  setAsyncStorageData,
+} from "../../utils/session.client";
 export default function HomeG() {
   // Contexto de la aplicación
 
@@ -22,6 +25,8 @@ export default function HomeG() {
 
     let value = JSON.stringify(store);
     console.log(await SecureStore.getItemAsync("store-data"));
+    let valor = await getAsyncStorageData("store_data");
+    console.log(valor);
     // Obtiene los datos de storeData del "AsyncStorage"
     await getAsyncStorageData("storeData", setTiendita);
     const querySnapshot = await getStorageData(first, setTiendita);
