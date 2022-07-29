@@ -1,3 +1,4 @@
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 
 {
@@ -81,16 +82,18 @@ const store = async (values) => {
 store({
   name: "sex",
 });
-const getData = async () => {
+
+async function getAsyncStorageData(key, setKey) {
   try {
-    const value = await AsyncStorageLib.getItem("store");
+    const value = await AsyncStorageLib.getItem(key);
     if (value !== null) {
-      // value = JSON.parse(value);
-      console.log("value", value);
-      setvalue(value);
+      setKey(value);
     }
-  } catch (error) {}
-};
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   createUserSession,
   getUserSession,
@@ -104,5 +107,5 @@ export {
   setUserPropsStore,
   getUserPropStore,
   deleteUserPropStore,
-  getData,
+  getAsyncStorageData,
 };

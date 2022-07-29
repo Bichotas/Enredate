@@ -29,7 +29,7 @@ async function getStorageData(userUid, setStore) {
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     console.log(doc.id, " => ", doc.data());
-    setStore(doc.data());
   });
+  return querySnapshot;
 }
 export { db, setUserDoc, getStorageData };

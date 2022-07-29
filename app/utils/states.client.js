@@ -7,7 +7,6 @@ function setSecureStates(setUid, setTypeAccount) {
 
   SecureStore.getItemAsync("typeAccount").then((typeAccount) => {
     setTypeAccount(typeAccount);
-    console.log(typeAccount);
   });
 }
 
