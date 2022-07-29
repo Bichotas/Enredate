@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // StatesSets
 import { db, getStorageData } from "../../utils/db.server";
-import { setSecureStates } from "../../utils/states.client";
+import { setSecureStates, setStoreState } from "../../utils/states.client";
 import StoreContext from "../../context/StoreContext";
 import {
   getAsyncStorageData,
@@ -18,15 +18,16 @@ export default function HomeG() {
   const [first, setfirst] = useState(null);
   const [typeAccount, setTypeAccount] = useState(null);
   const [tiendita, setTiendita] = useState(null);
+  const [asyncStorage, setasyncStorage] = useState("");
   console.log(storeContext.store);
   useEffect(async () => {
-    setSecureStates(setfirst, setTypeAccount);
+    setSecureStates(setfirst, setTypeAccount, setasyncStorage);
     const store = await getStorageData(first, setTiendita);
-
+    await setStoreState(setasyncStorage);
     let value = JSON.stringify(store);
     console.log(await SecureStore.getItemAsync("store-data"));
     let valor = await getAsyncStorageData("store_data");
-    console.log(valor);
+
     // Obtiene los datos de storeData del "AsyncStorage"
     await getAsyncStorageData("storeData", setTiendita);
     const querySnapshot = await getStorageData(first, setTiendita);
@@ -40,6 +41,7 @@ export default function HomeG() {
           " El tipo de cuenta es: " +
           typeAccount}
       </Text>
+      <Text>{"Async Data" + asyncStorage}</Text>
     </View>
   );
 }

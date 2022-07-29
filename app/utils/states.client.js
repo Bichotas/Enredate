@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 
 function setSecureStates(setUid, setTypeAccount) {
   SecureStore.getItemAsync("uid").then((uid) => {
@@ -10,4 +11,9 @@ function setSecureStates(setUid, setTypeAccount) {
   });
 }
 
-export { setSecureStates };
+async function setStoreState(setStore) {
+  await AsyncStorageLib.getItem("store_data").then((store) => {
+    setStore(store);
+  });
+}
+export { setSecureStates, setStoreState };
