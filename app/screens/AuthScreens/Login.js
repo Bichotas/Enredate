@@ -9,7 +9,7 @@ import {
   Stack,
   Button,
 } from "native-base";
-import React from "react";
+import React, { useContext, useState } from "react";
 {
   /* Podemos usar ya sea AsyncStorage o SecureStore para guardar el token del usuario 
   https://github.com/firebase/firebase-admin-node/issues/1488 */
@@ -20,6 +20,9 @@ import * as Yup from "yup";
 import { signIn } from "../../utils/auth.client";
 import { setUserPropsStore } from "../../utils/session.client";
 import { getUserDoc } from "../../utils/db.server";
+
+import StoreContext from "../../context/StoreContext";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
@@ -27,6 +30,7 @@ const validationSchema = Yup.object().shape({
     .required("Required"),
 });
 export default function Login() {
+  const storeContext = useContext(StoreContext);
   return (
     <NativeBaseProvider>
       <View justifyContent={"center"} alignItems={"center"}>
@@ -43,13 +47,6 @@ export default function Login() {
           }}
           onSubmit={async (values) => {
             const user = await signIn(values.email, values.password);
-
-            // Después de que el usuario se loguea, debemos de guardar el token en el expo-secure-store
-            // user.user.getIdToken().then(token => {
-            //   console.log(token)
-            // })
-
-            // Para el segundo parametro se necesita hacer una llamada a la base de datos y buscar un documento con su uid, de ahí sacar el tipo de cuenta
             const userData = (await getUserDoc(user.user.uid)).data();
             setUserPropsStore(user.user.uid, userData.typeAccount);
           }}
