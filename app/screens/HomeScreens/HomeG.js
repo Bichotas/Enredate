@@ -24,13 +24,6 @@ export default function HomeG() {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
     const store = await getStorageData(first, setTiendita);
     await setStoreState(setasyncStorage);
-    // let value = JSON.stringify(store);
-    //console.log(await SecureStore.getItemAsync("store-data"));
-    //let valor = await getAsyncStorageData("store_data");
-
-    // Obtiene los datos de storeData del "AsyncStorage"
-    // await getAsyncStorageData("storeData", setTiendita);
-    // console.log(await AsyncStorageLib.getAllKeys());
     const querySnapshot = await getStorageData(first, setTiendita);
   }, []);
 
