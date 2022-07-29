@@ -65,6 +65,10 @@ async function setUserPropsStore(uid, typeAccount, store) {
 async function setUserStore(store) {
   await setStoreData(store);
 }
+
+async function deleteUserStore() {
+  await SecureStore.deleteItemAsync("store-data");
+}
 async function getUserPropStore() {
   const uid = await getUserUid();
   const typeAccount = await getTypeAccount();
@@ -118,4 +122,5 @@ export {
   getUserPropStore,
   deleteUserPropStore,
   getAsyncStorageData,
+  deleteUserStore,
 };

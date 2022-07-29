@@ -9,6 +9,7 @@ import { signOutUser, auth } from "../../utils/auth.client";
 import { signOut } from "firebase/auth";
 import {
   deleteUserPropStore,
+  deleteUserStore,
   getUserPropStore,
 } from "../../utils/session.client";
 
@@ -64,6 +65,7 @@ function LogoutScreen({ navigation }) {
         onPress={async () => {
           signOut(auth);
           await deleteUserPropStore();
+          await deleteUserStore();
         }}
         title="SignOut"
       />
