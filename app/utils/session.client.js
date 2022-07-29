@@ -71,6 +71,10 @@ async function deleteUserPropStore() {
   await deleteTypeAccount();
 }
 
+async function setStoreData(store) {
+  let value = JSON.stringify(store);
+  await SecureStore.setItemAsync("store-data", value);
+}
 {
   /* --- Async Storage --- */
 }
