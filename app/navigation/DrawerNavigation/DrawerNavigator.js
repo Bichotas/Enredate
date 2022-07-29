@@ -73,27 +73,33 @@ function LogoutScreen({ navigation }) {
 const Drawer = createDrawerNavigator();
 
 // Se crea un componente de clase o un COMPONENTE CLASS
-export default class DrawerNavigator extends React.Component {
-  render() {
-    return (
-      <Drawer.Navigator initialRouteName="Home">
-        {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
+export default function DrawerNavigator() {
+  useEffect(() => {
+    console.log("DrwerNavigator");
 
-        {/* --- En cada Item del Drawer debe de haber un stack */}
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="MyStore" component={MyStoreScreen} />
-        <Drawer.Screen name="Orders" component={HomeG} />
-        <Drawer.Screen name="Cart" component={CartScreen} />
-        <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
-        {/* --- En cada Item del Drawer debe de haber un stack */}
+    return () => {
+      console.log("Return clean");
+    };
+  }, []);
 
-        {/* Faltaría  el logout -- Se pone como si fuera un componente para tener noción */}
-        {/* <Drawer.Screen name="Logout" component={LogoutScreen} /> */}
-        <Drawer.Screen name="Logout" component={LogoutScreen} />
+  return (
+    <Drawer.Navigator initialRouteName="Home">
+      {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
 
-        {/* --- Usar el flujo de autenticación --- */}
-        {/* https://reactnavigation.org/docs/auth-flow */}
-      </Drawer.Navigator>
-    );
-  }
+      {/* --- En cada Item del Drawer debe de haber un stack */}
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="MyStore" component={MyStoreScreen} />
+      <Drawer.Screen name="Orders" component={HomeG} />
+      <Drawer.Screen name="Cart" component={CartScreen} />
+      <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
+      {/* --- En cada Item del Drawer debe de haber un stack */}
+
+      {/* Faltaría  el logout -- Se pone como si fuera un componente para tener noción */}
+      {/* <Drawer.Screen name="Logout" component={LogoutScreen} /> */}
+      <Drawer.Screen name="Logout" component={LogoutScreen} />
+
+      {/* --- Usar el flujo de autenticación --- */}
+      {/* https://reactnavigation.org/docs/auth-flow */}
+    </Drawer.Navigator>
+  );
 }

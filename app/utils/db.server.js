@@ -32,4 +32,9 @@ async function getStorageData(userUid, setStore) {
   });
   return querySnapshot;
 }
-export { db, setUserDoc, getStorageData };
+
+async function getUserDoc(userUid) {
+  const docRef = doc(db, `users/${userUid}`);
+  return await getDoc(docRef);
+}
+export { db, setUserDoc, getStorageData, getUserDoc };
