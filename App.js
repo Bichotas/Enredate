@@ -6,8 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { onAuthStateChanged } from "firebase/auth";
 import { View, ActivityIndicator } from "react-native";
 import { auth } from "./app/utils/auth.client";
-const AuthenticatedUserContext = createContext();
+import StoreProvider from "./app/context/StoreProvider";
 
+import AuthenticatedUserContext from "./app/context/AuthenticatedUserContext";
 const AuthenticatedUserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   return (
@@ -51,7 +52,9 @@ export default class App extends React.Component {
   render() {
     return (
       <AuthenticatedUserProvider>
-        <RootNavigator />
+        <StoreProvider>
+          <RootNavigator />
+        </StoreProvider>
       </AuthenticatedUserProvider>
     );
   }
