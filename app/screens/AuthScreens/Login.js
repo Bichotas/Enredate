@@ -22,7 +22,7 @@ import {
   setAsyncStorageData,
   setUserPropsStore,
 } from "../../utils/session.client";
-import { getUserDoc } from "../../utils/db.server";
+import { getStorageData, getUserDoc } from "../../utils/db.server";
 
 import StoreContext from "../../context/StoreContext";
 
@@ -51,11 +51,11 @@ export default function Login() {
           onSubmit={async (values) => {
             const user = await signIn(values.email, values.password);
             const userData = (await getUserDoc(user.user.uid)).data();
-            setUserPropsStore(
-              user.user.uid,
-              userData.typeAccount,
-              "desde el login"
+            const documentO = JSON.stringify(
+              (await getStorageData(user.user.uid)).docs[0].data()
             );
+            //documentO.toString()
+            setUserPropsStore(user.user.uid, userData.typeAccount, documentO);
             await setAsyncStorageData("store_data", "Async desde el login");
           }}
           validationSchema={validationSchema}
