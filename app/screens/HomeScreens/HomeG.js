@@ -23,8 +23,9 @@ export default function HomeG() {
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
     const store = await getStorageData(first, setTiendita);
-    await setStoreState(setasyncStorage);
+    //await setStoreState(setasyncStorage);
     const querySnapshot = await getStorageData(first, setTiendita);
+    console.log(await AsyncStorageLib.getAllKeys());
   }, []);
 
   return (
