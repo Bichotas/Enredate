@@ -12,17 +12,12 @@ import {
 } from "../../utils/session.client";
 export default function HomeG() {
   // Contexto de la aplicación
-
-  const storeContext = useContext(StoreContext);
-
   const [first, setfirst] = useState(null);
   const [typeAccount, setTypeAccount] = useState("");
   // const [tiendita, setTiendita] = useState(null);
   const [asyncStorage, setasyncStorage] = useState("");
-  console.log(storeContext.store);
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
-
     // Ya no se necesita llamar aqui a la funcion getStorageData
     // dado que ya se llama en el useEffect de la pantalla de login
     // y se guarda en el SecureStore si es que el tipo de cuenta es "vendeor"
