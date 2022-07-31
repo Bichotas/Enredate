@@ -51,7 +51,6 @@ export default function Login() {
           onSubmit={async (values) => {
             const user = await signIn(values.email, values.password);
             const userData = (await getUserDoc(user.user.uid)).data();
-
             // Condición ternaria ---> Si el usuario es un vendedor entonces mandamos a llamar un documento si es que existe
             const documento =
               // Se compara si el valor es igaul al de "vendedor"
