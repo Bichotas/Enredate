@@ -51,12 +51,24 @@ export default function Login() {
           onSubmit={async (values) => {
             const user = await signIn(values.email, values.password);
             const userData = (await getUserDoc(user.user.uid)).data();
-            const documentO = JSON.stringify(
-              (await getStorageData(user.user.uid)).docs[0].data()
-            );
+
+            // Condición ternaria ---> Si el usuario es un vendedor entonces mandamos a llamar un documento si es que existe
+            const documento =
+              // Se compara si el valor es igaul al de "vendedor"
+              userData.typeAccount === "vendedor"
+                ? // Si es true, entonces se llama al documento y se convierte
+                  JSON.stringify(
+                    (await getStorageData(user.user.uid)).docs[0].data()
+                  )
+                : // False: entonces devolvemos un undefined
+                  // Pero en la funcion setUserPropStore
+                  // Se compara si el tipo de cuenta es typeAccount para sobreescribir el valor del secureStore
+                  // Asi para evitar que se cree y tenga un valor
+                  undefined;
             //documentO.toString()
-            setUserPropsStore(user.user.uid, userData.typeAccount, documentO);
-            await setAsyncStorageData("store_data", "Async desde el login");
+            setUserPropsStore(user.user.uid, userData.typeAccount, documento);
+            // Comentario AsyncStorage ---> Se puede usar más adelante
+            //await setAsyncStorageData("store_data", "Async desde el login");
           }}
           validationSchema={validationSchema}
         >

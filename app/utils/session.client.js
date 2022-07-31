@@ -58,10 +58,13 @@ async function setUserPropsStore(uid, typeAccount, store) {
   console.log(typeAccount);
   await setUserUid(uid);
   await setTypeAccount(typeAccount);
+
+  // Si se detecta que el tipo de cuenta es "vendendor" entonces vamos a proceder a guardar el store
   if (typeAccount === "vendedor") {
     await setUserStore(store);
   }
 }
+
 async function setUserStore(store) {
   await setStoreData(store);
 }
