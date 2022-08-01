@@ -16,7 +16,7 @@ import * as SecureStore from "expo-secure-store";
 
 import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
-
+import HomeNavigator from "../HomeNavigation/HomeNavigator";
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -101,7 +101,7 @@ export default function DrawerNavigator() {
       {/* --- En cada Item del Drawer debe de haber un stack */}
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="MyStore" component={MyStoreScreen} />
-      <Drawer.Screen name="Orders" component={HomeG} />
+      <Drawer.Screen name="Orders" component={HomeNavigator} />
       <Drawer.Screen name="Cart" component={CartScreen} />
       <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
       {/* --- En cada Item del Drawer debe de haber un stack */}
