@@ -18,7 +18,7 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { signIn } from "../../utils/auth.client";
-import { setUserPropsStore } from "../../utils/session.client";
+import { setObjectUSer, setUserPropsStore } from "../../utils/session.client";
 import { getUserDoc } from "../../utils/db.server";
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -52,7 +52,15 @@ export default class Login extends React.Component {
 
               // Para el segundo parametro se necesita hacer una llamada a la base de datos y buscar un documento con su uid, de ahí sacar el tipo de cuenta
               const userData = (await getUserDoc(user.user.uid)).data();
+              const propas = {
+                uid: user.user.uid,
+                typeAccount: userData.typeAccount,
+                email: user.user.email,
+                name: user.user.displayName,
+              };
+              const userProps = JSON.stringify(propas);
               setUserPropsStore(user.user.uid, userData.typeAccount);
+              setObjectUSer(userProps);
               const documento =
                 // Se compara si el valor es igaul al de "vendedor"
                 userData.typeAccount === "vendedor"

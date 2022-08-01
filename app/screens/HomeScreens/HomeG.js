@@ -12,10 +12,12 @@ export default function HomeG() {
   const [first, setfirst] = useState(null);
   const [typeAccount, setTypeAccount] = useState(null);
   const [tiendita, setTiendita] = useState(null);
+  const [user, setUser] = useState(null);
+
   useEffect(async () => {
-    setSecureStates(setfirst, setTypeAccount);
-    const value = await AsyncStorageLib.getItem("@store");
-    setTiendita(value);
+    setSecureStates(setfirst, setTypeAccount, setUser);
+    // const value = await AsyncStorageLib.getItem("@store");
+    // setTiendita(value);
   }, []);
 
   return (

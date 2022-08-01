@@ -50,6 +50,9 @@ async function deleteTypeAccount() {
   await SecureStore.deleteItemAsync("typeAccount");
 }
 
+async function setObjectUSer(string) {
+  await SecureStore.setItemAsync("user", string);
+}
 {
   /* functionWith all Functiuon */
 }
@@ -109,4 +112,5 @@ export {
   getUserPropStore,
   deleteUserPropStore,
   getAsyncStorageData,
+  setObjectUSer,
 };
