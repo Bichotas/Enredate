@@ -14,28 +14,6 @@ export default function HomeG() {
   const [tiendita, setTiendita] = useState(null);
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount);
-    const store = await getStorageData(first, setTiendita);
-    // Obtiene los datos de storeData del "AsyncStorage"
-    await getAsyncStorageData("storeData", setTiendita);
-    const querySnapshot = await getStorageData(first, setTiendita);
-
-    if (typeAccount === "vendedor") {
-      if (tiendita == null) {
-        console.log("No tiene datos de la tienda");
-        // Si no tiene datos en la loca, entonces debemos de mandar a llamar a la base de datos para que nos de los datos
-        console.log(querySnapshot.docs.length);
-        console.log(tiendita);
-      } else {
-        console.log("Tiene datos de su tienda");
-      }
-    }
-
-    return () => {
-      console.log("Se sale de esta wea");
-      setfirst(null);
-      setTypeAccount(null);
-      setTiendita(null);
-    };
   }, []);
 
   return (
