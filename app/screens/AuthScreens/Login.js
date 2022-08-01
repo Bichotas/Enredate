@@ -53,6 +53,19 @@ export default class Login extends React.Component {
               // Para el segundo parametro se necesita hacer una llamada a la base de datos y buscar un documento con su uid, de ahí sacar el tipo de cuenta
               const userData = (await getUserDoc(user.user.uid)).data();
               setUserPropsStore(user.user.uid, userData.typeAccount);
+              const documento =
+                // Se compara si el valor es igaul al de "vendedor"
+                userData.typeAccount === "vendedor"
+                  ? // Si es true, entonces se llama al documento y se convierte
+                    JSON.stringify(
+                      (await getStorageData(user.user.uid)).docs[0].data()
+                    )
+                  : // False: entonces devolvemos un undefined
+                    // Pero en la funcion setUserPropStore
+                    // Se compara si el tipo de cuenta es typeAccount para sobreescribir el valor del secureStore
+                    // Asi para evitar que se cree y tenga un valor
+                    null;
+              await AsyncStorageLib.setItem("@store", documento);
             }}
             validationSchema={validationSchema}
           >
