@@ -65,9 +65,15 @@ function LogoutScreen({ navigation }) {
       <Button
         onPress={async () => {
           signOut(auth);
-          await SecureStore.deleteItemAsync("uid");
-          await SecureStore.deleteItemAsync("typeAccount");
-          await SecureStore.deleteItemAsync("store-data");
+          await SecureStore.deleteItemAsync("uid").then(() => {
+            console.log("Se elimino el uid");
+          });
+          await SecureStore.deleteItemAsync("typeAccount").then(() => {
+            console.log("Se ha borrado el tipo de cuenta");
+          });
+          await SecureStore.deleteItemAsync("store-data").then(() => {
+            console.log("Se ha borrado el --store-data--");
+          });
 
           console.log(await SecureStore.getItemAsync("uid"));
         }}
