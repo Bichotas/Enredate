@@ -46,15 +46,17 @@ export default function HomeG({ navigation }) {
         ) : (
           <Text>Nombre de la tienda: {asyncStorage.nameStore}</Text>
         )}
-
+        {/* {typeAccount === "vendedor" &&
+          asyncStorage == null &&
+          navigation.navigate("Create")} */}
         {typeAccount === "vendedor" && asyncStorage == null && (
           <Modal
             isOpen={showModal}
             onClose={() => setShowModal(false)}
             size={"xl"}
+            closeOnOverlayClick={false}
           >
             <Modal.Content>
-              <Modal.CloseButton />
               <Modal.Header fontWeight={"bold"} fontSize={20}>
                 <Text fontWeight={"bold"} fontSize={20}>
                   Crea tu tienda

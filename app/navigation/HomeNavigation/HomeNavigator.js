@@ -8,12 +8,11 @@ const Stack = createNativeStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="HomeG">
-      <Stack.Screen
-        name="HomeG"
-        component={HomeG}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator
+      initialRouteName="HomeG"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="HomeG" component={HomeG} />
       <Stack.Screen
         name="Create"
         component={CreateStore}
