@@ -40,3 +40,17 @@
       ) : (
         <Text>{asyncStorage}</Text>
       )}
+
+              console.log("2- El tipo de cuenta es vendedor");
+        // Si es que si hay que checar que el storage tenga algo
+        const storage = await getStorageData(first);
+        console.log("3- El storage tiene algo");
+        console.log(storage);
+        if (storage.docs.length > 0) {
+          console.log("4- El storage tiene algo");
+          console.log(storage.docs[0].data());
+          // Si es que si hay que checar que el storage tenga algo
+          setasyncStorage(storage.docs[0].data());
+        } else {
+          console.log("5- El storage no tiene nada");
+        }

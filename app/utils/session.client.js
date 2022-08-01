@@ -54,14 +54,19 @@ async function deleteTypeAccount() {
   /* functionWith all Functiuon */
 }
 
-async function setUserPropsStore(uid, typeAccount, store) {
+async function setUserPropsStore(uid, typeAccount, store, whereUsing) {
   console.log(typeAccount);
   await setUserUid(uid);
   await setTypeAccount(typeAccount);
 
   // Si se detecta que el tipo de cuenta es "vendendor" entonces vamos a proceder a guardar el store
-  if (typeAccount === "vendedor") {
-    await setUserStore(store);
+  if (whereUsing == "login") {
+    // Es login
+    if (typeAccount === "vendedor") {
+      await setUserStore(store);
+    }
+  } else if (whereUsing == "register") {
+    console.log("Es en el register");
   }
 }
 

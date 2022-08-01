@@ -65,7 +65,12 @@ export default function Login() {
                   // Asi para evitar que se cree y tenga un valor
                   undefined;
             //documentO.toString()
-            setUserPropsStore(user.user.uid, userData.typeAccount, documento);
+            setUserPropsStore(
+              user.user.uid,
+              userData.typeAccount,
+              documento,
+              "login"
+            );
             // Comentario AsyncStorage ---> Se puede usar más adelante
             //await setAsyncStorageData("store_data", "Async desde el login");
           }}

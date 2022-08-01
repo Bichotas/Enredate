@@ -80,7 +80,9 @@ export default class Register extends React.Component {
               // 2- Guardamos los datos de session
               setUserPropsStore(
                 pendejada.user.uid,
-                this.props.route.params.typeAccount
+                this.props.route.params.typeAccount,
+                undefined,
+                "register"
               );
             }}
             validationSchema={validationSchema}

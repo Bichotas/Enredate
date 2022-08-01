@@ -16,11 +16,12 @@ export default function HomeG() {
   const [typeAccount, setTypeAccount] = useState("");
   // const [tiendita, setTiendita] = useState(null);
   const [asyncStorage, setasyncStorage] = useState(null);
+
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
-    // Ya no se necesita llamar aqui a la funcion getStorageData
-    // dado que ya se llama en el useEffect de la pantalla de login
-    // y se guarda en el SecureStore si es que el tipo de cuenta es "vendeor"
+
+    // checkStoreExists(uid, tipoCuenta, datosTienda);
+    //checkStoreExists(first, typeAccount, asyncStorage);
   }, []);
 
   return (
