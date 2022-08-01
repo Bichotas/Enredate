@@ -1,5 +1,5 @@
 //import { Button, NativeBaseProvider, View } from "native-base";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Button } from "react-native";
 // Navigation
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -74,9 +74,12 @@ const Drawer = createDrawerNavigator();
 
 // Se crea un componente de clase o un COMPONENTE CLASS
 export default function DrawerNavigator() {
-  useEffect(() => {
-    console.log("DrwerNavigator");
+  const [tiendita, setTiendita] = useState(null);
 
+  useEffect(async () => {
+    console.log("DrwerNavigator");
+    const value = await AsyncStorageLib.getItem("@store");
+    setTiendita(value);
     return () => {
       console.log("Return clean");
     };
@@ -87,6 +90,7 @@ export default function DrawerNavigator() {
       {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
 
       {/* --- En cada Item del Drawer debe de haber un stack */}
+      {/* <Drawer.Screen name={tiendita} component={OrderScreen} /> */}
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="MyStore" component={MyStoreScreen} />
       <Drawer.Screen name="Orders" component={HomeG} />
