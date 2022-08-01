@@ -26,6 +26,7 @@ export default function HomeG() {
           " El tipo de cuenta es: " +
           typeAccount}
       </Text>
+      <Text>Tienda: {tiendita}</Text>
     </View>
   );
 }
