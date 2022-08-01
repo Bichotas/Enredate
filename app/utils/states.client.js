@@ -11,7 +11,9 @@ function setSecureStates(setUid, setTypeAccount, setStore) {
   });
 
   SecureStore.getItemAsync("store-data").then((store) => {
-    setStore(store);
+    console.log(typeof store);
+    console.log(typeof JSON.parse(store));
+    setStore(JSON.parse(store));
   });
 }
 

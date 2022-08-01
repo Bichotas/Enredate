@@ -33,3 +33,10 @@
 //      -- Para luego utilizar los datos en la parte de "MyStore"
 //      __ Si no existe, entonces podemos navegar a la pantalla "CreateStore" que va  tener el tipo modal
 //}
+
+
+      {asyncStorage == null ? (
+        <Button title="No hay datos" />
+      ) : (
+        <Text>{asyncStorage}</Text>
+      )}

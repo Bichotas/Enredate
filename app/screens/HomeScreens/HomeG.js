@@ -15,14 +15,12 @@ export default function HomeG() {
   const [first, setfirst] = useState(null);
   const [typeAccount, setTypeAccount] = useState("");
   // const [tiendita, setTiendita] = useState(null);
-  const [asyncStorage, setasyncStorage] = useState("");
+  const [asyncStorage, setasyncStorage] = useState(null);
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
     // Ya no se necesita llamar aqui a la funcion getStorageData
     // dado que ya se llama en el useEffect de la pantalla de login
     // y se guarda en el SecureStore si es que el tipo de cuenta es "vendeor"
-
-    // const store = await getStorageData(first, setTiendita);
   }, []);
 
   return (
@@ -33,11 +31,7 @@ export default function HomeG() {
           " El tipo de cuenta es: " +
           typeAccount}
       </Text>
-      {asyncStorage == null ? (
-        <Button title="No hay datos" />
-      ) : (
-        <Text>{asyncStorage}</Text>
-      )}
+      <Text>{asyncStorage.nameStore}</Text>
     </View>
   );
 }
