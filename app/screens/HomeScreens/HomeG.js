@@ -14,6 +14,8 @@ export default function HomeG() {
   const [tiendita, setTiendita] = useState(null);
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount);
+    const value = await AsyncStorageLib.getItem("@store");
+    setTiendita(value);
   }, []);
 
   return (
