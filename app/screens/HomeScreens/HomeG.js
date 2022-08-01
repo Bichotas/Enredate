@@ -49,6 +49,9 @@ export default function HomeG({ navigation }) {
         {/* {typeAccount === "vendedor" &&
           asyncStorage == null &&
           navigation.navigate("Create")} */}
+
+        {/* typeAccount === "vendedor" && asyncStorage == null && <StoreModal />*/}
+
         {typeAccount === "vendedor" && asyncStorage == null && (
           <Modal
             isOpen={showModal}
