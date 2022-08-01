@@ -55,7 +55,6 @@ async function deleteTypeAccount() {
 }
 
 async function setUserPropsStore(uid, typeAccount, store, whereUsing) {
-  console.log(typeAccount);
   await setUserUid(uid);
   await setTypeAccount(typeAccount);
 

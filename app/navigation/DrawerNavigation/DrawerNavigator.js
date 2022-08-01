@@ -12,6 +12,7 @@ import {
   deleteUserStore,
   getUserPropStore,
 } from "../../utils/session.client";
+import * as SecureStore from "expo-secure-store";
 
 import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
@@ -64,8 +65,11 @@ function LogoutScreen({ navigation }) {
       <Button
         onPress={async () => {
           signOut(auth);
-          await deleteUserPropStore();
-          await deleteUserStore();
+          await SecureStore.deleteItemAsync("uid");
+          await SecureStore.deleteItemAsync("typeAccount");
+          await SecureStore.deleteItemAsync("store-data");
+
+          console.log(await SecureStore.getItemAsync("uid"));
         }}
         title="SignOut"
       />
