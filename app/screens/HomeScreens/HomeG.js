@@ -31,7 +31,11 @@ export default function HomeG() {
           " El tipo de cuenta es: " +
           typeAccount}
       </Text>
-      <Text>{asyncStorage.nameStore}</Text>
+      {asyncStorage == null ? (
+        <Button title="No hay datos" />
+      ) : (
+        <Text>Nombre de la tienda: {asyncStorage.nameStore}</Text>
+      )}
     </View>
   );
 }
