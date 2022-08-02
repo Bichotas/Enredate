@@ -13,7 +13,7 @@ import StoreContext from "../../context/StoreContext";
 // StatesSets
 import { db, getStorageData } from "../../utils/db.server";
 import { setSecureStates } from "../../utils/states.client";
-
+import ProfileContext from "../../context/ProfileContext";
 export default function HomeG({ navigation }) {
   // Contexto de la aplicación
   const [first, setfirst] = useState(null);
@@ -33,6 +33,7 @@ export default function HomeG({ navigation }) {
     console.log(asyncStorage);
   }, []);
   const { store } = useContext(StoreContext);
+  const { profile } = useContext(ProfileContext);
   return (
     <NativeBaseProvider>
       <View>
@@ -42,7 +43,7 @@ export default function HomeG({ navigation }) {
             " El tipo de cuenta es: " +
             typeAccount}
         </Text>
-        <Text>Cosa del context: {store.name}</Text>
+        <Text>Cosa del context: {profile.email}</Text>
         {asyncStorage == null ? (
           <Button title="No hay datos" />
         ) : (
@@ -59,7 +60,7 @@ export default function HomeG({ navigation }) {
             isOpen={showModal}
             onClose={() => setShowModal(false)}
             size={"xl"}
-            closeOnOverlayClick={false}
+            //closeOnOverlayClick={false}
           >
             <Modal.Content>
               <Modal.Header fontWeight={"bold"} fontSize={20}>

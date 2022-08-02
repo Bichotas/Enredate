@@ -6,10 +6,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { onAuthStateChanged } from "firebase/auth";
 import { View, ActivityIndicator } from "react-native";
 import { auth } from "./app/utils/auth.client";
-import StoreProvider from "./app/context/StoreProvider";
 
 import AuthenticatedUserContext from "./app/context/AuthenticatedUserContext";
 import StoreContext from "./app/context/StoreContext";
+import ProfileContext from "./app/context/ProfileContext";
 const AuthenticatedUserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   return (
@@ -23,6 +23,7 @@ function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [store, setStore] = useState("");
+  const [profile, setProfile] = useState();
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = onAuthStateChanged(
@@ -45,9 +46,11 @@ function RootNavigator() {
 
   return (
     <NavigationContainer>
-      <StoreContext.Provider value={{ store, setStore }}>
-        {user ? <Drawer /> : <AuthNavigation />}
-      </StoreContext.Provider>
+      <ProfileContext.Provider value={{ profile, setProfile }}>
+        <StoreContext.Provider value={{ store, setStore }}>
+          {user ? <Drawer /> : <AuthNavigation />}
+        </StoreContext.Provider>
+      </ProfileContext.Provider>
     </NavigationContainer>
   );
 }

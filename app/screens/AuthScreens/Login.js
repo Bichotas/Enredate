@@ -23,7 +23,7 @@ import {
   setUserPropsStore,
 } from "../../utils/session.client";
 import { getStorageData, getUserDoc } from "../../utils/db.server";
-
+import ProfileContext from "../../context/ProfileContext";
 import StoreContext from "../../context/StoreContext";
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -33,6 +33,7 @@ const validationSchema = Yup.object().shape({
 });
 export default function Login() {
   const Store = useContext(StoreContext);
+  const Profile = useContext(ProfileContext);
   return (
     <NativeBaseProvider>
       <View justifyContent={"center"} alignItems={"center"}>
@@ -73,6 +74,7 @@ export default function Login() {
             Store.setStore({ name: userData.name });
             // Comentario AsyncStorage ---> Se puede usar más adelante
             //await setAsyncStorageData("store_data", "Async desde el login");
+            Profile.setProfile({ ...userData });
           }}
           validationSchema={validationSchema}
         >
