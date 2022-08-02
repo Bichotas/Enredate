@@ -24,25 +24,12 @@ export default function HomeG({ navigation }) {
 
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
-    console.log("UseEffect");
   }, []);
-  useLayoutEffect(() => {
-    console.log("useLayoutEffect");
-    console.log(first);
-    console.log(typeAccount);
-    console.log(asyncStorage);
-  }, []);
-  const { store } = useContext(StoreContext);
+  useLayoutEffect(() => {}, []);
   const { profile } = useContext(ProfileContext);
   return (
     <NativeBaseProvider>
       <View>
-        <Text>
-          {"El uid del usuario " +
-            first +
-            " El tipo de cuenta es: " +
-            typeAccount}
-        </Text>
         <Text>Cosa del context: {profile.email}</Text>
         {asyncStorage == null ? (
           <Button title="No hay datos" />
