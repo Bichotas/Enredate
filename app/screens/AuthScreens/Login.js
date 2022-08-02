@@ -70,7 +70,7 @@ export default function Login() {
               documento,
               "login"
             );
-            Store.setStore({ name: "Login" });
+            Store.setStore({ name: userData.name });
             // Comentario AsyncStorage ---> Se puede usar más adelante
             //await setAsyncStorageData("store_data", "Async desde el login");
           }}
