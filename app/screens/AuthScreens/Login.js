@@ -94,6 +94,10 @@ export default class Login extends React.Component {
                     placeholder={"name"}
                     width={"100%"}
                     onBlur={() => setFieldTouched("email")}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
                   ></Input>
                   {touched.email && (
                     <Text style={{ color: "red" }}>{errors.email}</Text>

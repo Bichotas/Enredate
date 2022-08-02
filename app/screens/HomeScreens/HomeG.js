@@ -12,12 +12,10 @@ export default function HomeG() {
   const [first, setfirst] = useState(null);
   const [typeAccount, setTypeAccount] = useState(null);
   const [tiendita, setTiendita] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setUser);
-    // const value = await AsyncStorageLib.getItem("@store");
-    // setTiendita(value);
   }, []);
 
   return (
@@ -28,7 +26,6 @@ export default function HomeG() {
           " El tipo de cuenta es: " +
           typeAccount}
       </Text>
-      <Text>Tienda: {tiendita}</Text>
     </View>
   );
 }

@@ -5,14 +5,17 @@ function setSecureStates(setUid, setTypeAccount, setUser) {
     setUid(uid);
   });
 
-  SecureStore.getItemAsync("typeAccount").then((typeAccount) => {
-    setTypeAccount(typeAccount);
-  });
+  let typeAccount = SecureStore.getItemAsync("typeAccount").then(
+    (typeAccount) => {
+      setTypeAccount(typeAccount);
+    }
+  );
 
   // Temporal -- Usuario
-  SecureStore.getItemAsync("user").then((user) => {
-    setUser(user);
+  let user = SecureStore.getItemAsync("user").then((user) => {
+    setUser(JSON.parse(user));
   });
+  return user;
 }
 
 export { setSecureStates };

@@ -11,6 +11,7 @@ import {
   deleteUserPropStore,
   getUserPropStore,
 } from "../../utils/session.client";
+import { setSecureStates } from "../../utils/states.client";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
@@ -74,13 +75,15 @@ const Drawer = createDrawerNavigator();
 
 // Se crea un componente de clase o un COMPONENTE CLASS
 export default function DrawerNavigator() {
+  const [first, setfirst] = useState(null);
+  const [typeAccount, setTypeAccount] = useState(null);
   const [tiendita, setTiendita] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(async () => {
     console.log("DrwerNavigator");
-    const value = await AsyncStorageLib.getItem("@store");
-    setTiendita(value);
-
+    setSecureStates(setfirst, setTypeAccount, setUser);
+    console.log(user);
     return () => {
       console.log("Return clean");
     };
