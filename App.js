@@ -9,6 +9,7 @@ import { auth } from "./app/utils/auth.client";
 import StoreProvider from "./app/context/StoreProvider";
 
 import AuthenticatedUserContext from "./app/context/AuthenticatedUserContext";
+import StoreContext from "./app/context/StoreContext";
 const AuthenticatedUserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   return (
@@ -21,6 +22,7 @@ const AuthenticatedUserProvider = ({ children }) => {
 function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [store, setStore] = useState("");
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = onAuthStateChanged(
@@ -43,7 +45,9 @@ function RootNavigator() {
 
   return (
     <NavigationContainer>
-      {user ? <Drawer /> : <AuthNavigation />}
+      <StoreContext.Provider value={{ store, setStore }}>
+        {user ? <Drawer /> : <AuthNavigation />}
+      </StoreContext.Provider>
     </NavigationContainer>
   );
 }
@@ -52,9 +56,7 @@ export default class App extends React.Component {
   render() {
     return (
       <AuthenticatedUserProvider>
-        <StoreProvider>
-          <RootNavigator />
-        </StoreProvider>
+        <RootNavigator />
       </AuthenticatedUserProvider>
     );
   }

@@ -25,7 +25,6 @@ import {
 import { getStorageData, getUserDoc } from "../../utils/db.server";
 
 import StoreContext from "../../context/StoreContext";
-
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
@@ -33,7 +32,7 @@ const validationSchema = Yup.object().shape({
     .required("Required"),
 });
 export default function Login() {
-  const storeContext = useContext(StoreContext);
+  const Store = useContext(StoreContext);
   return (
     <NativeBaseProvider>
       <View justifyContent={"center"} alignItems={"center"}>
@@ -71,6 +70,7 @@ export default function Login() {
               documento,
               "login"
             );
+            Store.setStore({ name: "Login" });
             // Comentario AsyncStorage ---> Se puede usar más adelante
             //await setAsyncStorageData("store_data", "Async desde el login");
           }}

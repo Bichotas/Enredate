@@ -9,6 +9,7 @@ import {
 } from "native-base";
 import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import StoreContext from "../../context/StoreContext";
 // StatesSets
 import { db, getStorageData } from "../../utils/db.server";
 import { setSecureStates } from "../../utils/states.client";
@@ -31,7 +32,7 @@ export default function HomeG({ navigation }) {
     console.log(typeAccount);
     console.log(asyncStorage);
   }, []);
-
+  const { store } = useContext(StoreContext);
   return (
     <NativeBaseProvider>
       <View>
@@ -41,6 +42,7 @@ export default function HomeG({ navigation }) {
             " El tipo de cuenta es: " +
             typeAccount}
         </Text>
+        <Text>Cosa del context: {store.name}</Text>
         {asyncStorage == null ? (
           <Button title="No hay datos" />
         ) : (

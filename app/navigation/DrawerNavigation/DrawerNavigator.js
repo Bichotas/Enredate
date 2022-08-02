@@ -1,23 +1,25 @@
 //import { Button, NativeBaseProvider, View } from "native-base";
-import React, { useEffect } from "react";
-import { View, Button } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { View, Button, Text } from "react-native";
 // Navigation
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { signOutUser, auth } from "../../utils/auth.client";
 
 import { signOut } from "firebase/auth";
-import {
-  deleteUserPropStore,
-  deleteUserStore,
-  getUserPropStore,
-} from "../../utils/session.client";
+
 import * as SecureStore from "expo-secure-store";
 import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
 import HomeNavigator from "../HomeNavigation/HomeNavigator";
 import AuthenticatedUserContext from "../../context/AuthenticatedUserContext";
+import StoreContext from "../../context/StoreContext";
 function HomeScreen({ navigation }) {
+  const { store, setStore } = useContext(StoreContext);
+  useEffect(() => {
+    console.log(store);
+  }, []);
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Button
@@ -104,7 +106,7 @@ export default function DrawerNavigator() {
           <Drawer.Screen name={user.displayName} component={OrderScreen} />
           <Drawer.Screen name="Home" component={HomeScreen} />
           <Drawer.Screen name="MyStore" component={MyStoreScreen} />
-          <Drawer.Screen name="Orders" component={HomeNavigator} />
+          <Drawer.Screen name="Orders" component={HomeG} />
           <Drawer.Screen name="Cart" component={CartScreen} />
           <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
           {/* --- En cada Item del Drawer debe de haber un stack */}
