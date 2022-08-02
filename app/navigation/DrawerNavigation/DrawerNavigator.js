@@ -13,10 +13,10 @@ import {
   getUserPropStore,
 } from "../../utils/session.client";
 import * as SecureStore from "expo-secure-store";
-
 import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
 import HomeNavigator from "../HomeNavigation/HomeNavigator";
+import AuthenticatedUserContext from "../../context/AuthenticatedUserContext";
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -95,23 +95,28 @@ export default function DrawerNavigator() {
   }, []);
 
   return (
-    <Drawer.Navigator initialRouteName="Home">
-      {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
+    <AuthenticatedUserContext.Consumer>
+      {({ user }) => (
+        <Drawer.Navigator initialRouteName="Home">
+          {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
 
-      {/* --- En cada Item del Drawer debe de haber un stack */}
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="MyStore" component={MyStoreScreen} />
-      <Drawer.Screen name="Orders" component={HomeNavigator} />
-      <Drawer.Screen name="Cart" component={CartScreen} />
-      <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
-      {/* --- En cada Item del Drawer debe de haber un stack */}
+          {/* --- En cada Item del Drawer debe de haber un stack */}
+          <Drawer.Screen name={user.displayName} component={OrderScreen} />
+          <Drawer.Screen name="Home" component={HomeScreen} />
+          <Drawer.Screen name="MyStore" component={MyStoreScreen} />
+          <Drawer.Screen name="Orders" component={HomeNavigator} />
+          <Drawer.Screen name="Cart" component={CartScreen} />
+          <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
+          {/* --- En cada Item del Drawer debe de haber un stack */}
 
-      {/* Faltaría  el logout -- Se pone como si fuera un componente para tener noción */}
-      {/* <Drawer.Screen name="Logout" component={LogoutScreen} /> */}
-      <Drawer.Screen name="Logout" component={LogoutScreen} />
+          {/* Faltaría  el logout -- Se pone como si fuera un componente para tener noción */}
+          {/* <Drawer.Screen name="Logout" component={LogoutScreen} /> */}
+          <Drawer.Screen name="Logout" component={LogoutScreen} />
 
-      {/* --- Usar el flujo de autenticación --- */}
-      {/* https://reactnavigation.org/docs/auth-flow */}
-    </Drawer.Navigator>
+          {/* --- Usar el flujo de autenticación --- */}
+          {/* https://reactnavigation.org/docs/auth-flow */}
+        </Drawer.Navigator>
+      )}
+    </AuthenticatedUserContext.Consumer>
   );
 }
