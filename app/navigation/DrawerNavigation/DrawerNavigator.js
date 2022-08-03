@@ -1,5 +1,5 @@
 //import { Button, NativeBaseProvider, View } from "native-base";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Button, Text } from "react-native";
 // Navigation
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -11,6 +11,7 @@ import { signOut } from "firebase/auth";
 import * as SecureStore from "expo-secure-store";
 import HomeG from "../../screens/HomeScreens/HomeG";
 // --- Pantallas de ejemplo ---
+import ProfileContext from "../../context/ProfileContext";
 import HomeNavigator from "../HomeNavigation/HomeNavigator";
 import AuthenticatedUserContext from "../../context/AuthenticatedUserContext";
 import StoreContext from "../../context/StoreContext";
@@ -86,9 +87,11 @@ function LogoutScreen({ navigation }) {
   );
 }
 const Drawer = createDrawerNavigator();
-
 // Se crea un componente de clase o un COMPONENTE CLASS
 export default function DrawerNavigator() {
+  const Auth = useContext(AuthenticatedUserContext);
+  const Profile = useContext(ProfileContext);
+  const [name, setName] = useState();
   useEffect(() => {
     console.log("DrwerNavigator");
 
@@ -98,31 +101,27 @@ export default function DrawerNavigator() {
   }, []);
 
   return (
-    <AuthenticatedUserContext.Consumer>
-      {({ user }) => (
-        <Drawer.Navigator
-          initialRouteName="Home"
-          drawerContent={(props) => <CustomDrawer {...props} />}
-        >
-          {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={(props) => <CustomDrawer {...props} />}
+    >
+      {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
 
-          {/* --- En cada Item del Drawer debe de haber un stack */}
-          <Drawer.Screen name={user.displayName} component={OrderScreen} />
-          <Drawer.Screen name="Home" component={HomeScreen} />
-          <Drawer.Screen name="MyStore" component={MyStoreScreen} />
-          <Drawer.Screen name="Orders" component={HomeG} />
-          <Drawer.Screen name="Cart" component={CartScreen} />
-          <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
-          {/* --- En cada Item del Drawer debe de haber un stack */}
+      {/* --- En cada Item del Drawer debe de haber un stack */}
+      <Drawer.Screen name={Auth.user.displayName} component={OrderScreen} />
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="MyStore" component={MyStoreScreen} />
+      <Drawer.Screen name="Orders" component={HomeG} />
+      <Drawer.Screen name="Cart" component={CartScreen} />
+      <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
+      {/* --- En cada Item del Drawer debe de haber un stack */}
 
-          {/* Faltaría  el logout -- Se pone como si fuera un componente para tener noción */}
-          {/* <Drawer.Screen name="Logout" component={LogoutScreen} /> */}
-          <Drawer.Screen name="Logout" component={LogoutScreen} />
+      {/* Faltaría  el logout -- Se pone como si fuera un componente para tener noción */}
+      {/* <Drawer.Screen name="Logout" component={LogoutScreen} /> */}
+      <Drawer.Screen name="Logout" component={LogoutScreen} />
 
-          {/* --- Usar el flujo de autenticación --- */}
-          {/* https://reactnavigation.org/docs/auth-flow */}
-        </Drawer.Navigator>
-      )}
-    </AuthenticatedUserContext.Consumer>
+      {/* --- Usar el flujo de autenticación --- */}
+      {/* https://reactnavigation.org/docs/auth-flow */}
+    </Drawer.Navigator>
   );
 }
