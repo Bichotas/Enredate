@@ -33,7 +33,8 @@ const validationSchema = Yup.object().shape({
 });
 export default function Login() {
   const { store, setStore } = useContext(StoreContext);
-  const Profile = useContext(ProfileContext);
+  const { profile, setProfile } = useContext(ProfileContext);
+
   return (
     <NativeBaseProvider>
       <View justifyContent={"center"} alignItems={"center"}>
@@ -49,6 +50,7 @@ export default function Login() {
             password: "",
           }}
           onSubmit={async (values) => {
+            setProfile("Know you");
             const user = await signIn(values.email, values.password);
             const userData = (await getUserDoc(user.user.uid)).data();
             // Condición ternaria ---> Si el usuario es un vendedor entonces mandamos a llamar un documento si es que existe
@@ -71,10 +73,6 @@ export default function Login() {
               documento,
               "login"
             );
-            setStore("Esta es la pantalla de login");
-            // Comentario AsyncStorage ---> Se puede usar más adelante
-            //await setAsyncStorageData("store_data", "Async desde el login");
-            Profile.setProfile({ ...userData });
           }}
           validationSchema={validationSchema}
         >

@@ -30,7 +30,7 @@ export default function HomeG({ navigation }) {
   return (
     <NativeBaseProvider>
       <View>
-        <Text>Cosa del context: {store}</Text>
+        <Text>Cosa del context: {profile}</Text>
         <Button
           title="Cabiso"
           onPress={() => {

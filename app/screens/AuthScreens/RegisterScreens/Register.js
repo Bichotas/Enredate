@@ -34,7 +34,7 @@ const validationSchema = Yup.object().shape({
 
 export default function Register(props) {
   const Store = useContext(StoreContext);
-  const Profile = useContext(ProfileContext);
+  const { profile, setProfile } = useContext(ProfileContext);
   useEffect(() => {
     console.log(props.route.params);
   }, []);
@@ -81,7 +81,9 @@ export default function Register(props) {
               pendejada.user.uid
             );
 
-            Store.setStore("Desde el register");
+            Store.setStore("Desde el register el store");
+
+            setProfile("Desde el register el profile");
           }}
           validationSchema={validationSchema}
         >

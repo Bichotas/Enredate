@@ -65,7 +65,7 @@ function ConfigurationScreen({ navigation }) {
 
 function LogoutScreen({ navigation }) {
   const { store, setStore } = useContext(StoreContext);
-
+  const { profile, setProfile } = useContext(ProfileContext);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Button
@@ -83,6 +83,7 @@ function LogoutScreen({ navigation }) {
 
           console.log(await SecureStore.getItemAsync("uid"));
           setStore(null);
+          setProfile(null);
         }}
         title="SignOut"
       />
@@ -94,10 +95,16 @@ const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
   const Auth = useContext(AuthenticatedUserContext);
   const Store = useContext(StoreContext);
+  const Profile = useContext(ProfileContext);
   const [name, setName] = useState();
   useEffect(() => {
     console.log("DrwerNavigator");
+    console.log("----------------Store----------------");
     console.log(Store);
+    console.log("----------------Profile----------------");
+    console.log(Profile);
+    console.log("---------------------------------------");
+
     return () => {
       console.log("Return clean");
     };
