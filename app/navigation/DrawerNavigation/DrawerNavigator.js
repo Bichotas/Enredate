@@ -14,6 +14,7 @@ import HomeG from "../../screens/HomeScreens/HomeG";
 import HomeNavigator from "../HomeNavigation/HomeNavigator";
 import AuthenticatedUserContext from "../../context/AuthenticatedUserContext";
 import StoreContext from "../../context/StoreContext";
+import CustomDrawer from "../../components/CustomDrawer/CustomDrawer";
 function HomeScreen({ navigation }) {
   const { store, setStore } = useContext(StoreContext);
   useEffect(() => {
@@ -99,7 +100,10 @@ export default function DrawerNavigator() {
   return (
     <AuthenticatedUserContext.Consumer>
       {({ user }) => (
-        <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Navigator
+          initialRouteName="Home"
+          drawerContent={(props) => <CustomDrawer {...props} />}
+        >
           {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
 
           {/* --- En cada Item del Drawer debe de haber un stack */}

@@ -21,12 +21,12 @@ export default function HomeG({ navigation }) {
   const [asyncStorage, setasyncStorage] = useState(null);
   const [showModal, setShowModal] = useState(true);
   let [service, setService] = React.useState("");
+  const { profile } = useContext(ProfileContext);
 
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
+    console.log(profile);
   }, []);
-  useLayoutEffect(() => {}, []);
-  const { profile } = useContext(ProfileContext);
   return (
     <NativeBaseProvider>
       <View>
