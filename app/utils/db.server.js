@@ -16,10 +16,10 @@ const db = getFirestore(Firebases);
 // Funcion para crear un documento en la colección usuario
 async function setUserDoc(data, uid) {
   const docRef = doc(db, `users/${uid}`);
-  return await setDoc(docRef, {
-    ...data,
-    uid: uid,
-  });
+  const docData = await setDoc(docRef, { ...data, uid: uid }).then((doc) =>
+    console.log("Se crea el documento:", doc)
+  );
+  return docData;
 }
 
 async function getStorageData(userUid, setStore) {

@@ -22,7 +22,7 @@ export default function HomeG({ navigation }) {
   const [showModal, setShowModal] = useState(true);
   let [service, setService] = React.useState("");
   const { profile } = useContext(ProfileContext);
-
+  const { store, setStore } = useContext(StoreContext);
   useEffect(async () => {
     setSecureStates(setfirst, setTypeAccount, setasyncStorage);
     console.log(profile);
@@ -30,7 +30,14 @@ export default function HomeG({ navigation }) {
   return (
     <NativeBaseProvider>
       <View>
-        <Text>Cosa del context: {profile.email}</Text>
+        <Text>Cosa del context: {store}</Text>
+        <Button
+          title="Cabiso"
+          onPress={() => {
+            setStore("Cachondo");
+            console.log(store);
+          }}
+        />
         {asyncStorage == null ? (
           <Button title="No hay datos" />
         ) : (

@@ -67,6 +67,8 @@ export default function Register(props) {
               values.password,
               values.name
             );
+            console.log("Parametros de la pantalla anterior");
+            console.log(props.route.params);
 
             // Crear el docuemento y ponerle las propiades del usuario
             // 1- Creamos el documento
@@ -78,15 +80,8 @@ export default function Register(props) {
               },
               pendejada.user.uid
             );
-            // 2- Guardamos los datos de session
-            setUserPropsStore(
-              pendejada.user.uid,
-              this.props.route.params.typeAccount,
-              undefined,
-              "register"
-            );
 
-            Profile.setProfile("valor");
+            Store.setStore("Desde el register");
           }}
           validationSchema={validationSchema}
         >

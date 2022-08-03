@@ -32,7 +32,7 @@ const validationSchema = Yup.object().shape({
     .required("Required"),
 });
 export default function Login() {
-  const Store = useContext(StoreContext);
+  const { store, setStore } = useContext(StoreContext);
   const Profile = useContext(ProfileContext);
   return (
     <NativeBaseProvider>
@@ -71,7 +71,7 @@ export default function Login() {
               documento,
               "login"
             );
-            Store.setStore({ name: userData.name });
+            setStore("Esta es la pantalla de login");
             // Comentario AsyncStorage ---> Se puede usar más adelante
             //await setAsyncStorageData("store_data", "Async desde el login");
             Profile.setProfile({ ...userData });

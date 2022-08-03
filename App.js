@@ -22,8 +22,8 @@ const AuthenticatedUserProvider = ({ children }) => {
 function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [store, setStore] = useState("");
-  const [profile, setProfile] = useState();
+  const [store, setStore] = useState(null);
+  const [profile, setProfile] = useState(null);
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = onAuthStateChanged(

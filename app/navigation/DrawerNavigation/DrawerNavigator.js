@@ -64,6 +64,8 @@ function ConfigurationScreen({ navigation }) {
 }
 
 function LogoutScreen({ navigation }) {
+  const { store, setStore } = useContext(StoreContext);
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Button
@@ -80,6 +82,7 @@ function LogoutScreen({ navigation }) {
           });
 
           console.log(await SecureStore.getItemAsync("uid"));
+          setStore(null);
         }}
         title="SignOut"
       />
@@ -90,15 +93,15 @@ const Drawer = createDrawerNavigator();
 // Se crea un componente de clase o un COMPONENTE CLASS
 export default function DrawerNavigator() {
   const Auth = useContext(AuthenticatedUserContext);
-  const Profile = useContext(ProfileContext);
+  const Store = useContext(StoreContext);
   const [name, setName] = useState();
   useEffect(() => {
     console.log("DrwerNavigator");
-
+    console.log(Store);
     return () => {
       console.log("Return clean");
     };
-  }, []);
+  }, [Store.store]);
 
   return (
     <Drawer.Navigator
@@ -108,7 +111,7 @@ export default function DrawerNavigator() {
       {/* En cada Screen va a estar un stack, para acceder a las pantallas */}
 
       {/* --- En cada Item del Drawer debe de haber un stack */}
-      <Drawer.Screen name={Auth.user.displayName} component={OrderScreen} />
+      <Drawer.Screen name={"Auth.user.displayNam"} component={OrderScreen} />
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="MyStore" component={MyStoreScreen} />
       <Drawer.Screen name="Orders" component={HomeG} />
