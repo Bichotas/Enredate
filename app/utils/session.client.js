@@ -54,12 +54,28 @@ async function deleteTypeAccount() {
   /* functionWith all Functiuon */
 }
 
-async function setUserPropsStore(uid, typeAccount) {
-  console.log(typeAccount);
+async function setUserPropsStore(uid, typeAccount, store, whereUsing) {
   await setUserUid(uid);
   await setTypeAccount(typeAccount);
+
+  // Si se detecta que el tipo de cuenta es "vendendor" entonces vamos a proceder a guardar el store
+  if (whereUsing == "login") {
+    // Es login
+    if (typeAccount === "vendedor") {
+      await setUserStore(store);
+    }
+  } else if (whereUsing == "register") {
+    console.log("Es en el register");
+  }
 }
 
+async function setUserStore(store) {
+  await setStoreData(store);
+}
+
+async function deleteUserStore() {
+  await SecureStore.deleteItemAsync("store-data");
+}
 async function getUserPropStore() {
   const uid = await getUserUid();
   const typeAccount = await getTypeAccount();
@@ -71,6 +87,10 @@ async function deleteUserPropStore() {
   await deleteTypeAccount();
 }
 
+async function setStoreData(store) {
+  let value = JSON.stringify(store);
+  await SecureStore.setItemAsync("store-data", store);
+}
 {
   /* --- Async Storage --- */
 }
@@ -84,12 +104,21 @@ store({
   name: "sex",
 });
 
-async function getAsyncStorageData(key, setKey) {
+async function getAsyncStorageData(key) {
   try {
     const value = await AsyncStorageLib.getItem(key);
     if (value !== null) {
-      setKey(value);
+      return value;
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
+// Hacer una funcion la cual almacene un valor con un key en el AsyncStorage
+
+async function setAsyncStorageData(key, value) {
+  try {
+    await AsyncStorageLib.setItem(key, value);
   } catch (error) {
     console.log(error);
   }
@@ -109,4 +138,6 @@ export {
   getUserPropStore,
   deleteUserPropStore,
   getAsyncStorageData,
+  deleteUserStore,
+  setAsyncStorageData,
 };

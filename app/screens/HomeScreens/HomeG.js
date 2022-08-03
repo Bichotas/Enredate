@@ -1,51 +1,96 @@
 import * as SecureStore from "expo-secure-store";
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import AsyncStorageLib from "@react-native-async-storage/async-storage";
+import {
+  NativeBaseProvider,
+  Modal,
+  FormF,
+  Input,
+  VStack,
+  Select,
+} from "native-base";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
+import StoreContext from "../../context/StoreContext";
 // StatesSets
 import { db, getStorageData } from "../../utils/db.server";
 import { setSecureStates } from "../../utils/states.client";
-
-import { getAsyncStorageData } from "../../utils/session.client";
-
-export default function HomeG() {
+import ProfileContext from "../../context/ProfileContext";
+export default function HomeG({ navigation }) {
+  // Contexto de la aplicación
   const [first, setfirst] = useState(null);
-  const [typeAccount, setTypeAccount] = useState(null);
-  const [tiendita, setTiendita] = useState(null);
+  const [typeAccount, setTypeAccount] = useState("");
+  const [asyncStorage, setasyncStorage] = useState(null);
+  const [showModal, setShowModal] = useState(true);
+  let [service, setService] = React.useState("");
+  const { profile } = useContext(ProfileContext);
+
   useEffect(async () => {
-    setSecureStates(setfirst, setTypeAccount);
-    const store = await getStorageData(first, setTiendita);
-    // Obtiene los datos de storeData del "AsyncStorage"
-    await getAsyncStorageData("storeData", setTiendita);
-    const querySnapshot = await getStorageData(first, setTiendita);
-
-    if (typeAccount === "vendedor") {
-      if (tiendita == null) {
-        console.log("No tiene datos de la tienda");
-        // Si no tiene datos en la loca, entonces debemos de mandar a llamar a la base de datos para que nos de los datos
-        console.log(querySnapshot.docs.length);
-        console.log(tiendita);
-      } else {
-        console.log("Tiene datos de su tienda");
-      }
-    }
-
-    return () => {
-      console.log("Se sale de esta wea");
-      setfirst(null);
-      setTypeAccount(null);
-      setTiendita(null);
-    };
+    setSecureStates(setfirst, setTypeAccount, setasyncStorage);
+    console.log(profile);
   }, []);
-
   return (
-    <View>
-      <Text>
-        {"El uid del usuario " +
-          first +
-          " El tipo de cuenta es: " +
-          typeAccount}
-      </Text>
-    </View>
+    <NativeBaseProvider>
+      <View>
+        <Text>Cosa del context: {profile.email}</Text>
+        {asyncStorage == null ? (
+          <Button title="No hay datos" />
+        ) : (
+          <Text>Nombre de la tienda: {asyncStorage.nameStore}</Text>
+        )}
+        {/* {typeAccount === "vendedor" &&
+          asyncStorage == null &&
+          navigation.navigate("Create")} */}
+
+        {/* typeAccount === "vendedor" && asyncStorage == null && <StoreModal />*/}
+
+        {typeAccount === "vendedor" && asyncStorage == null && (
+          <Modal
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            size={"xl"}
+            //closeOnOverlayClick={false}
+          >
+            <Modal.Content>
+              <Modal.Header fontWeight={"bold"} fontSize={20}>
+                <Text fontWeight={"bold"} fontSize={20}>
+                  Crea tu tienda
+                </Text>
+              </Modal.Header>
+              <Modal.Body>
+                <Text>Nombre de la tienda</Text>
+                <Input name={"nameStore"} placeholder={"Nombre de la tienda"} />
+                <Text>Descripción</Text>
+                <Input name={"description"} placeholder={"Descripción"} />
+                <Text>Categoría</Text>
+                <VStack alignItems="center" space={4}>
+                  {/* Hacer luego un componente picker para tenerlo y que use una Flatlist para terminarlo */}
+                  <Select
+                    selectedValue={service}
+                    width={"100%"}
+                    variant="filled"
+                    accessibilityLabel="Choose Service"
+                    placeholder="Choose Service"
+                    mt={1}
+                    onValueChange={(itemValue) => setService(itemValue)}
+                  >
+                    <Select.Item label="Furniture" value="furniture" />
+                    <Select.Item label="Cars" value="cars" />
+                    <Select.Item label="Cameras" value="cameras" />
+                    <Select.Item label="Games" value="games" />
+                    <Select.Item label="Clothes" value="clothes" />
+                    <Select.Item label="Sports" value="sports" />
+                    <Select.Item label="Movies" value="movies" />
+                    <Select.Item label="Books" value="books" />
+                    <Select.Item label="Others" value="others" />
+                  </Select>
+                </VStack>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button title={"Si"} />
+              </Modal.Footer>
+            </Modal.Content>
+          </Modal>
+        )}
+      </View>
+    </NativeBaseProvider>
   );
 }

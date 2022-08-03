@@ -2,6 +2,7 @@ import { Button, NativeBaseProvider } from "native-base";
 import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 function AccountOptionScreen({ navigation }) {
+  const [tipoCuenta, setTipoCuenta] = useState("");
   const vendedor = () => {
     navigation.navigate("Register", { typeAccount: "vendedor" });
   };
