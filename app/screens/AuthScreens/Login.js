@@ -17,7 +17,7 @@ import React, { useContext, useState } from "react";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { signIn } from "../../utils/auth.client";
+import { auth, signIn } from "../../utils/auth.client";
 import {
   setAsyncStorageData,
   setUserPropsStore,
@@ -25,6 +25,8 @@ import {
 import { getStorageData, getUserDoc } from "../../utils/db.server";
 import ProfileContext from "../../context/ProfileContext";
 import StoreContext from "../../context/StoreContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
@@ -33,9 +35,20 @@ const validationSchema = Yup.object().shape({
 });
 export default function Login() {
   const { store, setStore } = useContext(StoreContext);
-  const { profile, setProfile } = useContext(ProfileContext);
-
-  return (
+  let Profile = useContext(ProfileContext);
+  async function handleSignIn({ email, password }) {
+    const infoUsuario = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((usuarioFirebase) => {
+      return usuarioFirebase;
+    });
+    const docRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+    const docSnap = await getDoc(docRef);
+    Profile.setProfile({ ...docSnap.data() });
+  }
+  return (1 
     <NativeBaseProvider>
       <View justifyContent={"center"} alignItems={"center"}>
         <Heading size={"3xl"} color="fuchsia.700" padding={2}>
@@ -49,31 +62,7 @@ export default function Login() {
             email: "",
             password: "",
           }}
-          onSubmit={async (values) => {
-            setProfile("Know you");
-            const user = await signIn(values.email, values.password);
-            const userData = (await getUserDoc(user.user.uid)).data();
-            // Condición ternaria ---> Si el usuario es un vendedor entonces mandamos a llamar un documento si es que existe
-            const documento =
-              // Se compara si el valor es igaul al de "vendedor"
-              userData.typeAccount === "vendedor"
-                ? // Si es true, entonces se llama al documento y se convierte
-                  JSON.stringify(
-                    (await getStorageData(user.user.uid)).docs[0].data()
-                  )
-                : // False: entonces devolvemos un undefined
-                  // Pero en la funcion setUserPropStore
-                  // Se compara si el tipo de cuenta es typeAccount para sobreescribir el valor del secureStore
-                  // Asi para evitar que se cree y tenga un valor
-                  undefined;
-            //documentO.toString()
-            setUserPropsStore(
-              user.user.uid,
-              userData.typeAccount,
-              documento,
-              "login"
-            );
-          }}
+          onSubmit={(values) => handleSignIn(values)}
           validationSchema={validationSchema}
         >
           {({
